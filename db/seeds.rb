@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+20.times do |i|
+    Kitten.create(name: "Kitty" + i.to_s, softness: rand(1..10), cuteness:rand(1..10), age: rand(1..20))
+end

@@ -1,0 +1,13 @@
+<tr>
+  <th><%= kitten.name %></th>
+  <td><%= kitten.age %></td>
+  <td><%= kitten.cuteness %></td>
+  <td><%= kitten.softness %></td>
+  <td>
+      <div>
+          <%= link_to '<i class="fa fa-search mr-2"></i>'.html_safe, kitten %>
+          <%= link_to '<i class="fa fa-edit mr-2"></i>'.html_safe, edit_kitten_path(kitten) %>
+          <%= fa_icon "trash" %>
+      </div>
+  </td>
+</tr>
