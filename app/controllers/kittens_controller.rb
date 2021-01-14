@@ -15,12 +15,15 @@ class KittensController < ApplicationController
 
   def create
       @kitten = Kitten.new(kitten_params)
-      if @kitten.save
-          format.html { redirect_to root_path, notice: 'Kitten was successfully created.' }
-          format.json { render :show, status: :created, location: @kitten }
-      else
-          format.html { render :index }
-          format.json { render json: @kitten.errors, status: :unprocessable_entity }
+      respond_to do |format|
+          if @kitten.save
+              format.html { redirect_to root_path, notice: 'Kitten was successfully created.' }
+              format.json { render :show, status: :created, location: @kitten }
+
+          else
+              format.html { render :new, alert: @kitten.errors.full_messages }
+              format.json { render json: @kitten.errors, status: :unprocessable_entity }
+          end
       end
   end
 
@@ -34,7 +37,7 @@ class KittensController < ApplicationController
          format.html { redirect_to @kitten, notice: 'Kitten was successfully updated.' }
          format.json { render :show, status: :ok, location: @kitten }
        else
-         format.html { render :edit }
+         format.html { render :edit, alert: @kitten.errors.full_messages }
          format.json { render json: @kitten.errors, status: :unprocessable_entity }
        end
      end
@@ -48,7 +51,8 @@ class KittensController < ApplicationController
            format.json { head :no_content }
          end
      else
-
+         format.html { render :index, alert: @kitten.errors.full_messages }
+         format.json { render json: @kitten.errors, status: :unprocessable_entity }
      end
   end
 

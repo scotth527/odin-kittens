@@ -7,7 +7,7 @@
       <div>
           <%= link_to '<i class="fa fa-search mr-2"></i>'.html_safe, kitten %>
           <%= link_to '<i class="fa fa-edit mr-2"></i>'.html_safe, edit_kitten_path(kitten) %>
-          <%= fa_icon "trash" %>
+          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, kitten, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
   </td>
 </tr>

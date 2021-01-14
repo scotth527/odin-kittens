@@ -10,6 +10,25 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <% if notice %>
+        <div class="alert alert-success" role="alert">
+            <%= notice %>
+        </div>
+    <% end %>
+
+    <% if alert && alert.length() > 0 %>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <% alert.each do |error|  %>
+                    <li><%= error %></li>
+                <% end %>
+            </ul> 
+        </div>
+    <% end %>
+
+    <div class="container">
+        <%= yield %>
+    </div>
   </body>
 </html>
