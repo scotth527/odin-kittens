@@ -17,15 +17,16 @@
         </div>
     <% end %>
 
-    <% if alert && alert.length() > 0 %>
+    <% p "Alert in the application" %>
+    <% p flash[:alert] %>
+
+
+    <% if flash[:alert] %>
         <div class="alert alert-danger" role="alert">
-            <ul>
-                <% alert.each do |error|  %>
-                    <li><%= error %></li>
-                <% end %>
-            </ul> 
+            <%= flash[:alert] %>
         </div>
     <% end %>
+
 
     <div class="container">
         <%= yield %>

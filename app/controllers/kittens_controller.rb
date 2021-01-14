@@ -1,6 +1,5 @@
 class KittensController < ApplicationController
   before_action :set_kitten, only: [:edit, :show ,:update, :destroy]
-  before_action :non_existent_kitten, only: [:edit, :show]
 
   def show
   end
@@ -21,7 +20,8 @@ class KittensController < ApplicationController
               format.json { render :show, status: :created, location: @kitten }
 
           else
-              format.html { render :new, alert: @kitten.errors.full_messages }
+              flash.now[:alert] = "Please correct the errors and try again."
+              format.html { render :new }
               format.json { render json: @kitten.errors, status: :unprocessable_entity }
           end
       end
@@ -37,7 +37,8 @@ class KittensController < ApplicationController
          format.html { redirect_to @kitten, notice: 'Kitten was successfully updated.' }
          format.json { render :show, status: :ok, location: @kitten }
        else
-         format.html { render :edit, alert: @kitten.errors.full_messages }
+         flash.now[:alert] = "Please correct the errors and try again."
+         format.html { render :edit }
          format.json { render json: @kitten.errors, status: :unprocessable_entity }
        end
      end
@@ -51,7 +52,8 @@ class KittensController < ApplicationController
            format.json { head :no_content }
          end
      else
-         format.html { render :index, alert: @kitten.errors.full_messages }
+         flash.now[:alert] = "Please try again later."
+         format.html { render :index }
          format.json { render json: @kitten.errors, status: :unprocessable_entity }
      end
   end
@@ -59,7 +61,11 @@ class KittensController < ApplicationController
  private
 
  def set_kitten
-     @kitten = Kitten.find(params[:id])
+     if (@kitten = Kitten.find_by_id(params[:id])).present?
+         @kitten = Kitten.find(params[:id])
+     else
+         content_not_found
+     end
  end
 
     # Only allow a list of trusted parameters through.
@@ -67,9 +73,5 @@ class KittensController < ApplicationController
      params.require(:kitten).permit(:name, :age, :cuteness,:softness)
  end
 
- def non_existent_kitten
-     unless @kitten
-          content_not_found
-     end
- end
+
 end

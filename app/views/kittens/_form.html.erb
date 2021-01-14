@@ -1,6 +1,16 @@
 
+<% if @kitten.errors.any? %>
+    <% p "There are errors!" %>
+    <ul>
+        <% @kitten.errors.full_messages.each do |error| %>
+            <% p "This is an error" %>
+            <% p error %>
+            <li><%= error %></li>
+        <% end %>
+    </ul>
+<% end %>
 
-<%= form_with model: @kitten do |form| %>
+<%= form_with model: @kitten, local: true do |form| %>
   <div class="d-flex flex-column">
       <%= form.label :name %>
       <%= form.text_field :name, class:"form-control" %>
