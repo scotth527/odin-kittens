@@ -2,6 +2,10 @@ class KittensController < ApplicationController
   before_action :set_kitten, only: [:edit, :show ,:update, :destroy]
 
   def show
+      respond_to do |format|
+          format.html { render :show }
+          format.json { render :json => { success:true, data:@kitten } }
+      end
   end
 
   def new
@@ -10,6 +14,10 @@ class KittensController < ApplicationController
 
   def index
     @kittens = Kitten.all
+    respond_to do |format|
+        format.html { render :index }
+        format.json { render :json => { success:true, data:@kittens } }
+    end
   end
 
   def create

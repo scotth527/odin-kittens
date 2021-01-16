@@ -11,6 +11,15 @@
 
   <body>
 
+      <nav class="navbar navbar-dark bg-dark justify-content-between pl-3 pr-3">
+        <%= link_to "Kittens", root_path , {class:"navbar-brand"} %>
+
+        <div class="d-flex ">
+            <%= link_to 'New Kitten', new_kitten_path, class: "btn btn-outline-info mr-2 my-2 my-sm-0" %>
+
+        </div>
+      </nav>
+
     <% if notice %>
         <div class="alert alert-success" role="alert">
             <%= notice %>
